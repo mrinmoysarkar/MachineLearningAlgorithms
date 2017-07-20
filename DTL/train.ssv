@@ -1,0 +1,17 @@
+5 0
+play outlook temperature humidity wind
+bdddd
+0 s h h w
+0 s h h s
+1 o h h w
+1 r m h w
+1 r c n w
+0 r c n s
+1 o c n s
+0 s m h w
+1 s c n w
+1 r m n w
+1 s m n s
+1 o m h s
+1 o h n w
+0 r m h s

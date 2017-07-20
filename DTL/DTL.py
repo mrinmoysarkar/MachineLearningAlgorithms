@@ -105,7 +105,12 @@ def addNode(rootNode, rootFeature, featureVector, usedFeature):
                 gain.append(-100)
             else:
                 gain.append(gainForSubSpace(rootFeature, i, featureVector[j]))
-                
+        
+        #print("max gain: ", max(gain))   
+        if max(gain) < 0.5:
+            if p1 > n1:
+                rootNode.attributes[i] = 1
+            continue
         newFeature = featureVector[gain.index(max(gain))]
         newNode = node(newFeature.name, newFeature.attributeNames)
         rootNode.attributes[i] = newNode
