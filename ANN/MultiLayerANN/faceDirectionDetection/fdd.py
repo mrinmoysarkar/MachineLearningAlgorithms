@@ -80,15 +80,15 @@ print("No Of file: ", noOfSample)
 
 
 
-eta = 0.3
-alph = 0.3
+eta = 0.6
+alph = 0.5
 
-hiddenunit = 60
+hiddenunit = 30
 inputunit = 960
 outputunit = 4
 
-noOfIteration = 10000
-noOfTestSample = 412
+noOfIteration = 1000
+noOfTestSample = 300
 
 w1 = mapToRange(np.random.random([inputunit,hiddenunit]),1.0,0,0.05,-0.05) #np.transpose(np.ndarray(shape=(2,2), buffer=np.array([[0.1, 0.4],[-0.2, 0.2]]), dtype=np.float)) #/2.0
 w2 = mapToRange(np.random.random([hiddenunit,outputunit]),1.0,0,0.05,-0.05) #np.transpose(np.ndarray(shape=(2,1), buffer=np.array([0.2, -0.5]), dtype=np.float))
@@ -102,6 +102,9 @@ cerror = 0
 
 dw1 = np.zeros([inputunit,hiddenunit])
 dw2 = np.zeros([hiddenunit,outputunit])
+
+pdw1 = np.zeros([inputunit,hiddenunit])
+pdw2 = np.zeros([hiddenunit,outputunit])
 
 r1 = 0
 while error>0.001 and j<noOfIteration:
@@ -121,9 +124,15 @@ while error>0.001 and j<noOfIteration:
         k1 = outputHL * (1 - outputHL)
         p = np.matmul(w2,k2) * k1
         dw1 +=  np.matmul(x,np.transpose(p))
-        
-    w1 = alph*w1 + eta*(dw1/noOfTestSample)
-    w2 = alph*w2 + eta*(dw2/noOfTestSample)
+    
+    dw1 = dw1/noOfTestSample
+    dw2 = dw2/noOfTestSample
+    w1 += alph*pdw1  + eta*dw1
+    w2 += alph*pdw2  + eta*dw2
+    pdw1 = dw1
+    pdw2 = dw2
+    dw1 = np.zeros([inputunit,hiddenunit])
+    dw2 = np.zeros([hiddenunit,outputunit])
     E.append(error/noOfTestSample)
     #r1+=64
     #r1 %= 256
