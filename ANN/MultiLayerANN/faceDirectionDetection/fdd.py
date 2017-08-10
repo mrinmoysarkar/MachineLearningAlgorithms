@@ -88,7 +88,7 @@ inputunit = 960
 outputunit = 4
 
 noOfIteration = 1000
-noOfTestSample = 300
+noOfTestSample = 256
 
 w1 = mapToRange(np.random.random([inputunit,hiddenunit]),1.0,0,0.05,-0.05) #np.transpose(np.ndarray(shape=(2,2), buffer=np.array([[0.1, 0.4],[-0.2, 0.2]]), dtype=np.float)) #/2.0
 w2 = mapToRange(np.random.random([hiddenunit,outputunit]),1.0,0,0.05,-0.05) #np.transpose(np.ndarray(shape=(2,1), buffer=np.array([0.2, -0.5]), dtype=np.float))
