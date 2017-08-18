@@ -25,7 +25,13 @@ sigma = zeros(1, size(X, 2));
 %
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
-
+[r,c] = size(X);
+for i=1:c
+    mu(1,i) = sum(X(:,i))/length(X(:,i));
+    X_norm(:,i) = X_norm(:,i) - mu(1,i);
+    sigma(1,i) = sqrt(sum(X_norm(:,i) .^ 2) / (length(X(:,i) -1)));
+    X_norm(:,i) = X_norm(:,i) / sigma(1,i);
+end
 
 
 
