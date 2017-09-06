@@ -71,51 +71,61 @@ legend('Iris Setosa', ' Iris Versicolor', 'Iris Verginica','AutoUpdate','off');
 
 
 %% plot overlap symbol (*)
-overlapingPointX = [];
-overlapingPointY = [];
-for i=1:length(irisSetosa(:,1))
-    x11 = irisSetosa(i,1);
-    y11 = irisSetosa(i,4);
-    x21 = irisVersicolor(i,1);
-    y21 = irisVersicolor(i,4);
-    for j=1:length(irisSetosa(:,1))
-        x22 = irisVersicolor(j,1);
-        y22 = irisVersicolor(j,4);
-        x32 = irisVerginica(j,1);
-        y32 = irisVerginica(j,4);
-        d1 = (x11-x22)^2 + (y11-y22)^2;
-        d2 = (x11-x32)^2 + (y11-y32)^2;
-        d3 = (x21-x32)^2 + (y21-y32)^2;
-        if d1 == 0 || d2 == 0
-            if isempty(find(overlapingPointX == irisSetosa(i,1)))
-                overlapingPointX = [overlapingPointX irisSetosa(i,1)];
-                overlapingPointY = [overlapingPointY irisSetosa(i,4)];
-            else
-                if isempty(find(overlapingPointY(find(overlapingPointX == irisSetosa(i,1))) == irisSetosa(i,4)))
-                    overlapingPointX = [overlapingPointX irisSetosa(i,1)];
-                    overlapingPointY = [overlapingPointY irisSetosa(i,4)];
-                end
-            end 
-        end
-        if d3 == 0
-            if isempty(find(overlapingPointX == irisVersicolor(i,1)))
-                overlapingPointX = [overlapingPointX irisVersicolor(i,1)];
-                overlapingPointY = [overlapingPointY irisVersicolor(i,4)];
-            else
-                if isempty(find(overlapingPointY(find(overlapingPointX == irisVersicolor(i,1))) == irisVersicolor(i,4)))
-                    overlapingPointX = [overlapingPointX irisVersicolor(i,1)];
-                    overlapingPointY = [overlapingPointY irisVersicolor(i,4)];
-                end
-            end
-        end
-    end
-end
-disp(['Total overlapping data points for petal width vs sepal length is : ' num2str(length(overlapingPointX))])
+% overlapingPointX = [];
+% overlapingPointY = [];
+% for i=1:length(irisSetosa(:,1))
+%     x11 = irisSetosa(i,1);
+%     y11 = irisSetosa(i,4);
+%     x21 = irisVersicolor(i,1);
+%     y21 = irisVersicolor(i,4);
+%     for j=1:length(irisSetosa(:,1))
+%         x22 = irisVersicolor(j,1);
+%         y22 = irisVersicolor(j,4);
+%         x32 = irisVerginica(j,1);
+%         y32 = irisVerginica(j,4);
+%         d1 = (x11-x22)^2 + (y11-y22)^2;
+%         d2 = (x11-x32)^2 + (y11-y32)^2;
+%         d3 = (x21-x32)^2 + (y21-y32)^2;
+%         if d1 == 0 || d2 == 0
+%             if isempty(find(overlapingPointX == irisSetosa(i,1)))
+%                 overlapingPointX = [overlapingPointX irisSetosa(i,1)];
+%                 overlapingPointY = [overlapingPointY irisSetosa(i,4)];
+%             else
+%                 if isempty(find(overlapingPointY(find(overlapingPointX == irisSetosa(i,1))) == irisSetosa(i,4)))
+%                     overlapingPointX = [overlapingPointX irisSetosa(i,1)];
+%                     overlapingPointY = [overlapingPointY irisSetosa(i,4)];
+%                 end
+%             end 
+%         end
+%         if d3 == 0
+%             if isempty(find(overlapingPointX == irisVersicolor(i,1)))
+%                 overlapingPointX = [overlapingPointX irisVersicolor(i,1)];
+%                 overlapingPointY = [overlapingPointY irisVersicolor(i,4)];
+%             else
+%                 if isempty(find(overlapingPointY(find(overlapingPointX == irisVersicolor(i,1))) == irisVersicolor(i,4)))
+%                     overlapingPointX = [overlapingPointX irisVersicolor(i,1)];
+%                     overlapingPointY = [overlapingPointY irisVersicolor(i,4)];
+%                 end
+%             end
+%         end
+%     end
+% end
+% 
+% disp(['Total overlapping data points for petal width vs sepal length is : ' num2str(length(overlapingPointX))])
+% 
+% plot(overlapingPointX, overlapingPointY, '*k');
+% legend('Iris Setosa', ' Iris Versicolor', 'Iris Verginica', 'Overlap dataPoint')
 
-plot(overlapingPointX, overlapingPointY, '*k');
+x1 = table(irisSetosa(:,1),irisSetosa(:,4));
+x2 = table(irisVersicolor(:,1),irisVersicolor(:,4));
+x3 = table(irisVerginica(:,1),irisVerginica(:,4));
+temp1 = union(intersect(x1,x2),intersect(x1,x3));
+overlapingPoints = union(temp1, intersect(x2,x3));
+
+disp(['Total overlapping data points for petal width vs sepal length is : ' num2str(size(overlapingPoints,1))])
+
+plot(overlapingPoints.Var1, overlapingPoints.Var2, '*k');
 legend('Iris Setosa', ' Iris Versicolor', 'Iris Verginica', 'Overlap dataPoint')
-
-
 
 
 
@@ -141,49 +151,58 @@ legend('Iris Setosa', ' Iris Versicolor', 'Iris Verginica','AutoUpdate','off');
 
 
 %% plot overlap symbol (*)
-overlapingPointX = [];
-overlapingPointY = [];
-for i=1:length(irisSetosa(:,2))
-    x11 = irisSetosa(i,2);
-    y11 = irisSetosa(i,3);
-    x21 = irisVersicolor(i,2);
-    y21 = irisVersicolor(i,3);
-    for j=1:length(irisSetosa(:,2))
-        x22 = irisVersicolor(j,2);
-        y22 = irisVersicolor(j,3);
-        x32 = irisVerginica(j,2);
-        y32 = irisVerginica(j,3);
-        d1 = (x11-x22)^2 + (y11-y22)^2;
-        d2 = (x11-x32)^2 + (y11-y32)^2;
-        d3 = (x21-x32)^2 + (y21-y32)^2;
-        if d1 == 0 || d2 == 0
-            if isempty(find(overlapingPointX == irisSetosa(i,2)))
-                overlapingPointX = [overlapingPointX irisSetosa(i,2)];
-                overlapingPointY = [overlapingPointY irisSetosa(i,3)];
-            else
-                if isempty(find(overlapingPointY(find(overlapingPointX == irisSetosa(i,2))) == irisSetosa(i,3)))
-                    overlapingPointX = [overlapingPointX irisSetosa(i,2)];
-                    overlapingPointY = [overlapingPointY irisSetosa(i,3)];
-                end
-            end
-        end
-        if d3 == 0
-            if isempty(find(overlapingPointX == irisVersicolor(i,2)))
-                overlapingPointX = [overlapingPointX irisVersicolor(i,2)];
-                overlapingPointY = [overlapingPointY irisVersicolor(i,3)];
-            else
-                if isempty(find(overlapingPointY(find(overlapingPointX == irisVersicolor(i,2))) == irisVersicolor(i,3)))
-                    overlapingPointX = [overlapingPointX irisVersicolor(i,2)];
-                    overlapingPointY = [overlapingPointY irisVersicolor(i,3)];
-                end
-            end
-        end
-    end
-end
+% overlapingPointX = [];
+% overlapingPointY = [];
+% for i=1:length(irisSetosa(:,2))
+%     x11 = irisSetosa(i,2);
+%     y11 = irisSetosa(i,3);
+%     x21 = irisVersicolor(i,2);
+%     y21 = irisVersicolor(i,3);
+%     for j=1:length(irisSetosa(:,2))
+%         x22 = irisVersicolor(j,2);
+%         y22 = irisVersicolor(j,3);
+%         x32 = irisVerginica(j,2);
+%         y32 = irisVerginica(j,3);
+%         d1 = (x11-x22)^2 + (y11-y22)^2;
+%         d2 = (x11-x32)^2 + (y11-y32)^2;
+%         d3 = (x21-x32)^2 + (y21-y32)^2;
+%         if d1 == 0 || d2 == 0
+%             if isempty(find(overlapingPointX == irisSetosa(i,2)))
+%                 overlapingPointX = [overlapingPointX irisSetosa(i,2)];
+%                 overlapingPointY = [overlapingPointY irisSetosa(i,3)];
+%             else
+%                 if isempty(find(overlapingPointY(find(overlapingPointX == irisSetosa(i,2))) == irisSetosa(i,3)))
+%                     overlapingPointX = [overlapingPointX irisSetosa(i,2)];
+%                     overlapingPointY = [overlapingPointY irisSetosa(i,3)];
+%                 end
+%             end
+%         end
+%         if d3 == 0
+%             if isempty(find(overlapingPointX == irisVersicolor(i,2)))
+%                 overlapingPointX = [overlapingPointX irisVersicolor(i,2)];
+%                 overlapingPointY = [overlapingPointY irisVersicolor(i,3)];
+%             else
+%                 if isempty(find(overlapingPointY(find(overlapingPointX == irisVersicolor(i,2))) == irisVersicolor(i,3)))
+%                     overlapingPointX = [overlapingPointX irisVersicolor(i,2)];
+%                     overlapingPointY = [overlapingPointY irisVersicolor(i,3)];
+%                 end
+%             end
+%         end
+%     end
+% end
 
+% disp(['Total overlapping data points for petal length vs sepal width is : ' num2str(length(overlapingPointX))])
+% 
+% plot(overlapingPointX, overlapingPointY, '*k');
+% legend('Iris Setosa', ' Iris Versicolor', 'Iris Verginica', 'Overlap dataPoint')
 
-disp(['Total overlapping data points for petal length vs sepal width is : ' num2str(length(overlapingPointX))])
+x1 = table(irisSetosa(:,2),irisSetosa(:,3));
+x2 = table(irisVersicolor(:,2),irisVersicolor(:,3));
+x3 = table(irisVerginica(:,2),irisVerginica(:,3));
+temp1 = union(intersect(x1,x2),intersect(x1,x3));
+overlapingPoints = union(temp1, intersect(x2,x3));
 
-plot(overlapingPointX, overlapingPointY, '*k');
+disp(['Total overlapping data points for petal length vs sepal width is : ' num2str(size(overlapingPoints,1))])
+
+plot(overlapingPoints.Var1, overlapingPoints.Var2, '*k');
 legend('Iris Setosa', ' Iris Versicolor', 'Iris Verginica', 'Overlap dataPoint')
-
