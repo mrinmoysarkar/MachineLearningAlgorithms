@@ -110,7 +110,7 @@ for i=1:length(irisSetosa(:,1))
         end
     end
 end
-disp(['Total overlaping data points for petal width vs sepal length is : ' num2str(length(overlapingPointX))])
+disp(['Total overlapping data points for petal width vs sepal length is : ' num2str(length(overlapingPointX))])
 
 plot(overlapingPointX, overlapingPointY, '*k');
 legend('Iris Setosa', ' Iris Versicolor', 'Iris Verginica', 'Overlap dataPoint')
@@ -182,7 +182,7 @@ for i=1:length(irisSetosa(:,2))
 end
 
 
-disp(['Total overlaping data points for petal length vs sepal width is : ' num2str(length(overlapingPointX))])
+disp(['Total overlapping data points for petal length vs sepal width is : ' num2str(length(overlapingPointX))])
 
 plot(overlapingPointX, overlapingPointY, '*k');
 legend('Iris Setosa', ' Iris Versicolor', 'Iris Verginica', 'Overlap dataPoint')
