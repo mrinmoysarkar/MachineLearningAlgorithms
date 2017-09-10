@@ -1,5 +1,5 @@
 function [x, y] = dataFormation()
-fileName = 'C:\Users\msarkar\dataSet\1. Northwest diagonal area, tarp found and confirmed\custd.sqlite3';
+fileName = 'E:\dataSet\1. Northwest diagonal area, tarp found and confirmed\custd.sqlite3';
 tableName = 'mavlink_scaled_imu2';
 
 %row no. of the variable in the database table
@@ -35,17 +35,22 @@ x = [x1(1:r,1:end-1) x2(1:r,1:end-1)];
 % [0 1 0 0]' => Fly Orbit and Observe
 % [0 0 1 0]' => Fly Search Pattern
 % [0 0 0 1]' => Survey Target
-outputState = eye(4,4);
-y = zeros(r,4);
+%outputState = eye(4,4);
+%y = zeros(r,4);
+y = zeros(r,1);
 for i=1:r
     if x1(i,end) < 42097 || x1(i,end) >= 414069
-        y(i,:) = outputState(1,:);
+        %y(i,:) = outputState(1,:);
+        y(i)=1;
     elseif (x1(i,end) >= 42097 && x1(i,end) < 76932) || (x1(i,end) >= 294892 && x1(i,end) < 414069)
-        y(i,:) = outputState(2,:);
+        %y(i,:) = outputState(2,:);
+        y(i)=2;
     elseif x1(i,end) >= 76932 && x1(i,end) < 222611
-        y(i,:) = outputState(3,:);
+        %y(i,:) = outputState(3,:);
+        y(i)=3;
     elseif x1(i,end) >= 222611 && x1(i,end) < 294892
-        y(i,:) = outputState(4,:);
+        %y(i,:) = outputState(4,:);
+        y(i)=4;
     end
 end
 
