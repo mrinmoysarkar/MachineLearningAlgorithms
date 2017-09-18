@@ -58,6 +58,7 @@ initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
 %
 fprintf('\nTraining Neural Network... \n')
 
+tic
 %  After you have completed the assignment, change the MaxIter to a larger
 %  value to see how more training helps.
 options = optimset('MaxIter', maxiteration);
@@ -80,7 +81,7 @@ Theta1 = reshape(nn_params(1:hidden_layer_size * (input_layer_size + 1)), ...
 Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):end), ...
                  num_labels, (hidden_layer_size + 1));
 
-
+disp(toc)
 
 
 %% ================= Part 4: Implement Predict =================

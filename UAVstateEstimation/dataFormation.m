@@ -1,5 +1,5 @@
 function [x, y] = dataFormation()
-fileName = 'E:\dataSet\1. Northwest diagonal area, tarp found and confirmed\custd.sqlite3';
+fileName = 'custd.sqlite3';
 tableName = 'mavlink_scaled_imu2';
 
 %row no. of the variable in the database table
