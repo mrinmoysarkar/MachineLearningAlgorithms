@@ -7,7 +7,7 @@ input_layer_size  = 9;
 hidden_layer_size = 10;   
 num_labels = 4;            
 lambda = 1.5;                 
-maxiteration = 50000;
+maxiteration = 70000;
 
 %% =========== Part 1: Loading and Visualizing Data =============
 %  We start the exercise by first loading and visualizing the dataset. 
@@ -82,7 +82,6 @@ Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):en
                  num_labels, (hidden_layer_size + 1));
 
 disp(toc)
-
 
 %% ================= Part 4: Implement Predict =================
 %  After training the neural network, we would like to use it to predict

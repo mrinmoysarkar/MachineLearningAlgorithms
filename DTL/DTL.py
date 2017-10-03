@@ -167,6 +167,10 @@ print('training Done')
 i=0
 correct = 0
 incorrect = 0
+pos = 0
+neg = 0
+tp = 0
+tn = 0
 with open("noisy10_test.ssv", "r") as trainData:
     for instanceX in trainData:
         if i==1:
@@ -178,6 +182,14 @@ with open("noisy10_test.ssv", "r") as trainData:
                 #print(traverseNode.name)
                 nextNode = traverseNode.attributes[attr[featureName.index(traverseNode.name)]]
                 if nextNode == 0 or nextNode == 1 :
+                    if (attr[0] == '0'):
+                        neg += 1
+                    else:
+                        pos += 1
+                    if (nextNode == 0 and attr[0] == '0'):
+                        tn += 1
+                    if (nextNode == 1 and attr[0] == '1'):
+                        tp += 1
                     if (nextNode == 0 and attr[0] == '0') or (nextNode == 1 and attr[0] == '1'):
                         correct += 1
                     else:
@@ -187,9 +199,15 @@ with open("noisy10_test.ssv", "r") as trainData:
         i+=1
         #if i == 10:
         #    break
-
+print('Total test example:', correct+incorrect)
 print('correct: ', correct,' incorrect: ', incorrect)
 print('success rate in %: ', math.ceil((correct * 100)/(correct+incorrect)))
+print('confussion matrix:: predicted +ve | predicted -ve')
+print('-------------------------------------------------')
+print('\t   True +ve| ', tp, '\t  | ',pos-tp)
+print('-------------------------------------------------')
+print('\t   True -ve| ', neg-tn, '\t  | ', tn)
+print('-------------------------------------------------')
 print('test done')
 
 
