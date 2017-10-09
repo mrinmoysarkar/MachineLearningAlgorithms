@@ -58,7 +58,7 @@ trueClasses = {trueA, trueB, trueC};
 
 X = X';
 Z_init = [5.1 3.5 1.4 0.2;...
-          7.0 3.2 7.7 1.4;...
+          7.0 3.2 4.7 1.4;...
           6.3 3.3 6.0 2.5;...
           5.8 2.7 5.1 1.9]';
 
@@ -67,6 +67,8 @@ T = [0.01 0.1];
 for i=1:length(K)
     for j=1:length(T)
         [z,classes] = kmeanAlgorithm(X,K(i),Z_init(:,1:K(i)),T(j));
+        disp('Initial cluster centers:');
+        disp((Z_init(:,1:K(i)))');
         disp('Final cluster centers:');
         disp(z');
         fprintf('#(K = %d, T = %0.2f) ',K(i),T(j));

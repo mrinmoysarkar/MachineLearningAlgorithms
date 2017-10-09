@@ -6,10 +6,9 @@ end
 iterationNo = 1;
 while 1
     %fprintf('Iteration Number : %d\n', iterationNo);
-    iterationNo = iterationNo + 1;
     for i=1:size(x,2)
         temp = ones(size(z)).*x(:,i);
-        [m mi] = min(sqrt(sum((z-temp).^2)));
+        [m mi] = min(sum((z-temp).^2));
         classes{1,mi} = [classes{1,mi} x(:,i)];
     end
     zNew = zeros(size(z));
@@ -25,5 +24,7 @@ while 1
     for i=1:k
         classes{1,i}=[];
     end
+    iterationNo = iterationNo + 1;
 end
+fprintf('Iteration Number : %d\n', iterationNo);
 end
